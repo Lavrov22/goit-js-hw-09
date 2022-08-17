@@ -33,7 +33,7 @@ const options = {
             Notiflix.Notify.failure("Please choose a date in the future");
         } else {
           refs.btnStart.disabled = false;
-          refs.input.disabled = true;
+          // refs.input.disabled = true;
         return (selectedTime = selectedDates[0].getTime());
       }
        
@@ -43,9 +43,11 @@ const options = {
 flatpickr("input#datetime-picker", options);
 
 function onTimerStartClick() {
+  refs.input.disabled = true;
      if (isActive) {
         return;
-    }
+  }
+  
       isActive = true;
     intervalId = setInterval(() => {
    refs.btnStart.disabled = true;
