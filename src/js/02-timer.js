@@ -7,12 +7,16 @@ const refs = {
     days: document.querySelector('[data-days]'),
     hours: document.querySelector('[data-hours]'),
     minutes: document.querySelector('[data-minutes]'),
-    seconds: document.querySelector('[data-seconds]'),
+  seconds: document.querySelector('[data-seconds]'),
+  input: document.querySelector('input'),  
    
 }
+
+
 let selectedTime;
 let intervalId = null;
 refs.btnStart.disabled = true;
+
 let isActive = false;
 const date = Date.now();
 
@@ -25,11 +29,11 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
         if (selectedDates[0] <= options.defaultDate) {
-            refs.btnStart.disabled = true;
             stopTimer();
             Notiflix.Notify.failure("Please choose a date in the future");
-      } else {
-           refs.btnStart.disabled = false;
+        } else {
+          refs.btnStart.disabled = false;
+          refs.input.disabled = true;
         return (selectedTime = selectedDates[0].getTime());
       }
        
@@ -44,7 +48,7 @@ function onTimerStartClick() {
     }
       isActive = true;
     intervalId = setInterval(() => {
-   
+   refs.btnStart.disabled = true;
       
         const currentTime = Date.now();
         const delta = selectedTime - currentTime;
@@ -60,7 +64,8 @@ function onTimerStartClick() {
 
 function stopTimer() {
     clearInterval(intervalId);
-refs.btnStart.disabled = true;
+  refs.btnStart.disabled = false;
+  refs.input.disabled = false;
 }
 
 
